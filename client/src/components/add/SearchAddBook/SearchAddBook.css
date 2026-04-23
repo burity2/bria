@@ -1,20 +1,7 @@
 .searchBar-container {
   position: relative;
 }
-.searchbar-form {
-  display: flex;
-  gap: 0.3rem;
-}
-.searchbar-search-input {
-  width: 20rem;
-}
-.searchbar-button {
-  background-color: #363b16;
-  width: 5rem;
-  height: 2rem;
-  color: #f5f5f5;
-  border-radius: 3px;
-}
+
 .search-results-container {
   position: absolute;
   top: 100%;
@@ -34,10 +21,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* gap: 0.5rem; */
   padding: 0.3rem 0;
   border-bottom: 1px solid #e0e0e0;
 }
+
 .search-result-item-book-details {
   display: flex;
   gap: 0.5rem;

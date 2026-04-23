@@ -1,6 +1,4 @@
 .layout-container {
-  /* Styles for Layout */
-  /* width: 70vw; */
   width: 100%;
   display: flex;
   flex-direction: column;
