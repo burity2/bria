@@ -15,7 +15,6 @@ const bookSchema = new mongoose.Schema({
   isbn: {
     type: String,
     required: false,
-    // unique: true, //TODO: was causing issues with manual entry without isbns
   },
   title: {
     type: String,
