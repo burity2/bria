@@ -1,72 +1,59 @@
 import { useState, useRef, useEffect } from 'react';
-import './SearchBar.css';
-import { getBookCover, getBooksBySearch } from '../../services/apiService.js';
-import { postBook } from '../../services/bookService.js';
+import { getBooksBySearch, getBookCover } from '../../../services/apiService';
+import './SearchAddBook.css';
+import '../add.global.css'
 
-function SearchBar({ books, setBooks }) {
+function SearchAddBook({ onAddBook }) {
   const [searchString, setSearchString] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [results, setResults] = useState([]);
   const containerRef = useRef(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const newSearch = await getBooksBySearch(searchString); // returns array of books from search string
-    setSearchResults(newSearch);
-    searchResults.map((book, index) => {
-      const cover = getBookCover(book.cover_i, 'S');
-      console.log(cover);
-    });
+    const data = await getBooksBySearch(searchString);
+    setResults(data);
     setSearchString('');
   }
 
-  function handleSearchChange(e) {
-    const str = e.target.value;
-    setSearchString(str);
+  function handleSelect(book) {
+    onAddBook(book);
+    setResults([]);
   }
 
-  async function handleSearchAddClick(book) {
-    try {
-      const newBook = await postBook(book);
-      setBooks((oldBooks) => [newBook, ...oldBooks]);
-      console.log('Book added successfully: ', newBook);
-    } catch (error) {
-      console.log('Failed to add book: ', error);
-    }
-  }
-
-  // clear the results from the search if i click anywhere other than the search container
   useEffect(() => {
     function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target))
-        setSearchResults([]);
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setResults([]);
+      }
     }
+
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
     <div className='searchBar-container' ref={containerRef}>
+
       <form className='searchbar-form' onSubmit={handleSubmit}>
         <input
           className='searchbar-search-input'
           type='search'
-          name='searchBar'
           placeholder='search for a book...'
           value={searchString}
-          onChange={handleSearchChange}
-        ></input>
-        <button className='searchbar-button' type='submit'>
+          onChange={(e) => setSearchString(e.target.value)}
+        />
+        <button type='submit'>
           Search
         </button>
       </form>
 
-      {searchResults.length > 0 && (
+      {results.length > 0 && (
         <div className='search-results-container'>
-          {searchResults.map((book, index) => (
+          {results.map((book, index) => (
             <div key={index} className='search-result-item'>
+
               <div className='search-result-item-book-details'>
+
                 {book.cover_i && (
                   <img
                     src={getBookCover(book.cover_i, 'S')}
@@ -74,19 +61,23 @@ function SearchBar({ books, setBooks }) {
                     className='search-result-cover'
                   />
                 )}
+
                 <div className='search-result-text'>
                   <strong>{book.title}</strong>
                   {book.author_name && (
                     <span> by {book.author_name.join(', ')}</span>
                   )}
                 </div>
+
               </div>
+
               <button
                 className='search-result-add-button'
-                onClick={() => handleSearchAddClick(book)}
+                onClick={() => handleSelect(book)}
               >
                 +
               </button>
+
             </div>
           ))}
         </div>
@@ -95,4 +86,4 @@ function SearchBar({ books, setBooks }) {
   );
 }
 
-export default SearchBar;
+export default SearchAddBook;

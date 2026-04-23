@@ -2,23 +2,6 @@
   position: relative;
 }
 
-.searchbar-form {
-  display: flex;
-  gap: 0.3rem;
-}
-
-.searchbar-search-input {
-  width: 20rem;
-}
-
-.searchbar-button {
-  background-color: #363b16;
-  width: 5rem;
-  height: 2rem;
-  color: #f5f5f5;
-  border-radius: 3px;
-}
-
 .search-results-container {
   position: absolute;
   top: 100%;
