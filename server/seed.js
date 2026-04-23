@@ -1,12 +1,15 @@
 // seed.js
+//TODO: eliminate all non used stuff
+
 require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') });
 const mongoose = require('./db.js');
-const User = require('./models/users.js');
-const Book = require('./models/books.js');
-const Shelf = require('./models/shelves.js');
+//const User = require('./models/users.js');
+//const Book = require('./models/books.js');
+//const Shelf = require('./models/shelves.js');
 const UserBook = require('./models/userBooks.js');
 const mockShelvesRaw = require('./mocks/mockBria.shelves.json');
 
+/*
 const mockShelves = mockShelvesRaw.map(shelf => ({
   ...shelf,
   _id: shelf._id?.$oid,
@@ -14,24 +17,20 @@ const mockShelves = mockShelvesRaw.map(shelf => ({
   createdAt: shelf.createdAt ? new Date(shelf.createdAt.$date) : undefined,
   updatedAt: shelf.updatedAt ? new Date(shelf.updatedAt.$date) : undefined
 }));
+*/
 
-
-// const users = require('./mocks/users.js');
-// const books = require('./mocks/books.js');
-// const shelves = require('./mocks/shelves.js');
-// const userBooks = require('./mocks/userBooks.js');
-const fs = require('fs');
+//const fs = require('fs');
 const path = require('path');
-const csv = require('csv-parser');
+//const csv = require('csv-parser');
 
-const GOODREADS_CSV_PATH = path.join(__dirname, '../Goodreads Library Export.csv');
+//const GOODREADS_CSV_PATH = path.join(__dirname, '../Goodreads Library Export.csv');
 
 // Replace with your actual IDs
-const userId = process.env.USER_ID;
-const allShelfId = process.env.ALL_SHELF_ID;
-const wantShelfId = process.env.WANT_SHELF_ID;
+//const userId = process.env.USER_ID;
+//const allShelfId = process.env.ALL_SHELF_ID;
+//const wantShelfId = process.env.WANT_SHELF_ID;
 const readShelfId = process.env.READ_SHELF_ID;
-const ownedShelfId = process.env.OWNED_SHELF_ID;
+//const ownedShelfId = process.env.OWNED_SHELF_ID;
 
 const BAD_READ_SHELF_ID = '64a0c0b0c3f8fa2d1e4b0001'; // user ID mistakenly used
 
@@ -48,7 +47,9 @@ async function fixReadShelfId() {
   }
 }
 
-
+//useless function below?
+//TODO: lets delete if so!
+/*
 const readCSV = (filePath) =>
   new Promise((resolve, reject) => {
     const results = [];
@@ -58,8 +59,11 @@ const readCSV = (filePath) =>
       .on('end', () => resolve(results))
       .on('error', reject);
   });
+*/
 
-
+//useless function below?
+//TODO: lets delete if so!
+/*
 async function importGoodreads() {
   const rows = await readCSV(GOODREADS_CSV_PATH);
 
@@ -146,24 +150,10 @@ async function importGoodreads() {
 
   console.log('📚 Goodreads books imported');
 }
+*/
 
 async function seed() {
-  // await mongoose.connection.dropDatabase();
 
-  // await User.findOneAndUpdate(
-  //   { _id: userId },
-  //   {
-  //     _id: userId,
-  //     username: 'luana',
-  //     email: 'luana@example.com'
-  //   },
-  //   { upsert: true, new: true }
-  // );
-
-  // await Shelf.insertMany(mockShelves);
-  // console.log('📁 Shelves seeded');
-
-  // await importGoodreads();
   await fixReadShelfId();
 
   mongoose.connection.close();
