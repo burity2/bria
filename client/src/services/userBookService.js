@@ -2,12 +2,11 @@
 
 const url = 'http://localhost:3000';
 
-
-async function updateProgress (bookId, progress) {
+async function updateProgress(bookId, progress) {
   const res = await fetch(`${url}/userbooks/${bookId}/progress`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ progress }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -17,11 +16,11 @@ async function updateProgress (bookId, progress) {
   }
 }
 
-async function updateStatus (bookId, status) {
+async function updateStatus(bookId, status) {
   const res = await fetch(`${url}/userbooks/${bookId}/status`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ status }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -31,11 +30,11 @@ async function updateStatus (bookId, status) {
   }
 }
 
-async function updateOwned (bookId, owned) {
+async function updateOwned(bookId, owned) {
   const res = await fetch(`${url}/userbooks/${bookId}/owned`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ owned }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -45,11 +44,11 @@ async function updateOwned (bookId, owned) {
   }
 }
 
-async function updateFavorite (bookId, favorite) {
+async function updateFavorite(bookId, favorite) {
   const res = await fetch(`${url}/userbooks/${bookId}/favorite`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ favorite }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -59,11 +58,11 @@ async function updateFavorite (bookId, favorite) {
   }
 }
 
-async function updateFormat (bookId, format) {
+async function updateFormat(bookId, format) {
   const res = await fetch(`${url}/userbooks/${bookId}/format`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ format }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -73,11 +72,11 @@ async function updateFormat (bookId, format) {
   }
 }
 
-async function updateShelves (bookId, shelves) {
+async function updateShelves(bookId, shelves) {
   const res = await fetch(`${url}/userbooks/${bookId}/shelves`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ shelves }),
-    headers: { "Content-Type": "application/json" }
+    headers: { 'Content-Type': 'application/json' },
   });
   if (res.ok) {
     const data = await res.json(data);
@@ -87,10 +86,10 @@ async function updateShelves (bookId, shelves) {
   }
 }
 
-export { 
-  updateProgress, 
-  updateStatus, 
-  updateOwned, 
+export {
+  updateProgress,
+  updateStatus,
+  updateOwned,
   updateFavorite,
   updateFormat,
   updateShelves,

@@ -2,43 +2,26 @@ import { useState } from 'react';
 import './../AddBook/AddBook.css';
 import { postBook } from '../../services/bookService';
 
-function AddBookManual ({ books, setBooks }) {
-
+function AddBookManual({ books, setBooks }) {
   const [title, setTitle] = useState('');
   const [authors, setAuthors] = useState([]);
   const [isbn, setIsbn] = useState('');
   const [pages, setPages] = useState(0);
   const [format, setFormat] = useState([]);
-  // const [bookData, setBookData] = useState({
-  //   title: title,
-  //   authors: authors,
-  //   isbn: isbn,
-  //   pages: pages,
-  //   format: format,
-  // });
 
-  async function handleSubmit (e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
-    //   setBookData({
-    //     title: title,
-    //     authors: authors,
-    //     isbn: isbn,
-    //     pages: pages,
-    //     format: format
-    //   })
-    //   console.log(bookData);
-    //   const newBook = await postBook(bookData)
       const bookToSubmit = {
         title,
-        authors: authors.split(', ').map(str => str.trim()),
+        authors: authors.split(', ').map((str) => str.trim()),
         isbn: isbn.trim() === '' ? undefined : isbn.trim(),
         pages,
-        userData: { format }
+        userData: { format },
       };
       console.log(bookToSubmit);
       const newBook = await postBook(bookToSubmit);
-      setBooks(oldBooks => [newBook, ...oldBooks]);
+      setBooks((oldBooks) => [newBook, ...oldBooks]);
       console.log('new book manual: ', newBook);
       //reset everything
       setTitle('');
@@ -52,84 +35,84 @@ function AddBookManual ({ books, setBooks }) {
   }
 
   //TODO: could refactor to make one function that also takes the set function as parameter
-  function handleTitleChange (e) {
+  function handleTitleChange(e) {
     const str = e.target.value;
     setTitle(str);
   }
-  function handleAuthorsChange (e) {
+  function handleAuthorsChange(e) {
     const arr = e.target.value;
     setAuthors(arr);
   }
-  function handleIsbnChange (e) {
+  function handleIsbnChange(e) {
     const str = e.target.value;
     setIsbn(str);
   }
-  function handlePagesChange (e) {
+  function handlePagesChange(e) {
     const str = e.target.value;
     setPages(str);
   }
-  // function handleFormatChange (e) {
-  //   const arr = e.target.value;
-  //   console.log(arr);
-  //   setFormat(arr)
-  // }
 
   return (
-    <form 
-      className="addbook-form-container manual-form"
-      onSubmit={handleSubmit} >
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">title</label>
-        <input 
-          className="form-input-input" 
-          type="text" 
-          placeholder="book title" 
+    <form
+      className='addbook-form-container manual-form'
+      onSubmit={handleSubmit}
+    >
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>title</label>
+        <input
+          className='form-input-input'
+          type='text'
+          placeholder='book title'
           required
           value={title}
-          onChange={handleTitleChange} />
+          onChange={handleTitleChange}
+        />
       </div>
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">author(s)</label>
-        <input 
-          className="form-input-input" 
-          type="text" 
-          placeholder="author(s)" 
-          required 
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>author(s)</label>
+        <input
+          className='form-input-input'
+          type='text'
+          placeholder='author(s)'
+          required
           value={authors}
-          onChange={handleAuthorsChange} />
+          onChange={handleAuthorsChange}
+        />
       </div>
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">isbn</label>
-        <input 
-          className="form-input-input" 
-          type="text" 
-          placeholder="isbn"
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>isbn</label>
+        <input
+          className='form-input-input'
+          type='text'
+          placeholder='isbn'
           value={isbn}
-          onChange={handleIsbnChange} />
+          onChange={handleIsbnChange}
+        />
       </div>
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">pages</label>
-        <input 
-          className="form-input-input" 
-          type="number" 
-          placeholder="page count"
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>pages</label>
+        <input
+          className='form-input-input'
+          type='number'
+          placeholder='page count'
           value={pages}
-          onChange={handlePagesChange} />
+          onChange={handlePagesChange}
+        />
       </div>
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">format (only if owned)</label>
-        <div className="checkbox-group">
-          {['physical', 'kindle', 'audiobook'].map(option => (
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>format (only if owned)</label>
+        <div className='checkbox-group'>
+          {['physical', 'kindle', 'audiobook'].map((option) => (
             <label key={option}>
               <input
-                type="checkbox"
+                type='checkbox'
                 value={option}
                 checked={format.includes(option)}
-                onChange={e => {
+                onChange={(e) => {
                   const value = e.target.value;
-                  setFormat(prev =>
+                  setFormat((prev) =>
                     prev.includes(value)
-                      ? prev.filter(item => item !== value)
+                      ? prev.filter((item) => item !== value)
                       : [...prev, value]
                   );
                 }}
@@ -139,7 +122,7 @@ function AddBookManual ({ books, setBooks }) {
           ))}
         </div>
       </div>
-      <button type="submit">Add</button>
+      <button type='submit'>Add</button>
     </form>
   );
 }

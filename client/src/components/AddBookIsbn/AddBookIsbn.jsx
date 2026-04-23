@@ -3,12 +3,10 @@ import './../AddBook/AddBook.css';
 import { getBookByIsbn } from '../../services/apiService';
 import { postBook } from '../../services/bookService';
 
-function AddBookIsbn ({ books, setBooks }) {
-
+function AddBookIsbn({ books, setBooks }) {
   const [isbn, setIsbn] = useState('');
-  // const [status, setStatus] = useState('');
 
-  async function handleSubmit (e) {
+  async function handleSubmit(e) {
     console.log('here');
     console.log(isbn);
     e.preventDefault();
@@ -25,30 +23,31 @@ function AddBookIsbn ({ books, setBooks }) {
       console.log('book: ', book);
       const newBook = await postBook(book);
       console.log('new book entry: ', newBook);
-      setBooks(oldBooks => [newBooks, ...oldBooks]);
-      setIsbn('')
+      setBooks((oldBooks) => [newBooks, ...oldBooks]);
+      setIsbn('');
       //TODO: add validation message for user to know it was added successfully
     } catch (error) {
       console.log(error);
     }
   }
-  function handleIsbnChange (e) {
+  function handleIsbnChange(e) {
     const str = e.target.value;
     setIsbn(str);
   }
 
   return (
-    <form className="addbook-form-container isbn-form" onSubmit={handleSubmit}>
-      <div className="addbook-form-input-container">
-        <label className="form-input-label">isbn</label>
-        <input 
-          className="form-input-input" 
-          type="text" 
-          placeholder="enter ISBN" 
+    <form className='addbook-form-container isbn-form' onSubmit={handleSubmit}>
+      <div className='addbook-form-input-container'>
+        <label className='form-input-label'>isbn</label>
+        <input
+          className='form-input-input'
+          type='text'
+          placeholder='enter ISBN'
           value={isbn}
-          onChange={handleIsbnChange} ></input>
+          onChange={handleIsbnChange}
+        ></input>
       </div>
-        <button type="submit">Search</button>
+      <button type='submit'>Search</button>
     </form>
   );
 }

@@ -3,46 +3,50 @@ import { useEffect, useState } from 'react';
 import WelcomePage from './components/WelcomePage/WelcomePage';
 import { getUserBooks } from './services/bookService.js';
 
-import './App.css'
+import './App.css';
 import Home from './components/Home/Home';
 import Library from './components/Library/Library';
 import Layout from './components/Layout/Layout.jsx';
 
 function App() {
-  const [books, setBooks] = useState([]); //essentially this needs to be the "All" bookshelf
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    async function fetchUserBooks () {
+    async function fetchUserBooks() {
       try {
         const userBooks = await getUserBooks();
-        const filteredBooks = userBooks.filter(book => {if (book.bookId.cover) return book});
+        const filteredBooks = userBooks.filter((book) => {
+          if (book.bookId.cover) return book;
+        });
         setBooks(filteredBooks);
       } catch (error) {
         console.log(error);
       }
     }
     fetchUserBooks();
-  }, [])
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<WelcomePage />}></Route>
-      <Route path="/home" element={
-                            <Layout books={books} setBooks={setBooks}>
-                              <Home 
-                                books={ books } 
-                                setBooks={ setBooks }
-                              />
-                            </Layout>
-      }>
-      </Route>
-      <Route path="/library" element={
-                                <Layout books={books} setBooks={setBooks}>
-                                  <Library books={ books } setBooks={ setBooks } />
-                                </Layout>}>
-      </Route>
+      <Route path='/' element={<WelcomePage />}></Route>
+      <Route
+        path='/home'
+        element={
+          <Layout books={books} setBooks={setBooks}>
+            <Home books={books} setBooks={setBooks} />
+          </Layout>
+        }
+      ></Route>
+      <Route
+        path='/library'
+        element={
+          <Layout books={books} setBooks={setBooks}>
+            <Library books={books} setBooks={setBooks} />
+          </Layout>
+        }
+      ></Route>
     </Routes>
   );
 }
 
-export default App
+export default App;

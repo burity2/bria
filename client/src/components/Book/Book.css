@@ -1,28 +1,26 @@
 .book-shelf-container {
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
   margin-bottom: 8px;
-  /* border: red solid 2px; */
 }
+
 .book-details-shelf-container {
   display: flex;
   align-self: flex-end;
   width: auto;
-  
+
   height: 15rem;
 }
+
 .book-library-popup-container {
-  /* border: red solid 2px; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  /* width: 100%; */
-  /* height: 60vh; */
   height: 100%;
 }
+
 .book-library-container {
-  /* border: green dotted 2px; */
   width: 95%;
   height: 90%;
   display: flex;
@@ -31,12 +29,11 @@
 }
 
 .book-pick-container {
-  /* border: red solid 2px; */
   display: flex;
-  /* width: 100%; */
   flex-direction: column;
   align-items: center;
 }
+
 .book-current-container {
   display: flex;
   flex-direction: column;
@@ -44,8 +41,8 @@
   gap: 0.25rem;
   width: 100%;
 }
+
 .book-current-title {
-  /* display: flex; */
   text-align: center;
   font-size: 0.9rem;
 }

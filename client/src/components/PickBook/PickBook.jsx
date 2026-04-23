@@ -10,8 +10,7 @@ const readShelfId = '64a0c0b0c3f8fa2d1e4c0001';
 const wantShelfId = '64a0c0b0c3f8fa2d1e4c0002';
 const ownedShelfId = '64a0c0b0c3f8fa2d1e4c0003';
 
-function PickBook ({ books, setBooks }) {
-
+function PickBook({ books, setBooks }) {
   const [mode, setMode] = useState(null);
   const [booksPicked, setBooksPicked] = useState([]);
   const [amount, setAmount] = useState(1);
@@ -19,8 +18,8 @@ function PickBook ({ books, setBooks }) {
   const [length, setLength] = useState(1);
   const [format, setFormat] = useState('');
   const [genre, setGenre] = useState(''); //TODO: these aren't in the database right now
-  
-  function resetPickingState () {
+
+  function resetPickingState() {
     setAmount(1);
     setReRead('');
     setLength(1);
@@ -28,20 +27,36 @@ function PickBook ({ books, setBooks }) {
   }
 
   return (
-    <div className="pickBook-container">
-      <div className="pickbook-title-mode-button">
-        <h1 className="pickbook-title">pick next book</h1>
+    <div className='pickBook-container'>
+      <div className='pickbook-title-mode-button'>
+        <h1 className='pickbook-title'>pick next book</h1>
 
-        <div className="pickbook-mode-button-container">
-          <button className="pickbook-mode-button" onClick={() => {setMode('read'); setBooksPicked([])}}>to read</button>
-          <button className="pickbook-mode-button" onClick={() => {setMode('buy'); setBooksPicked([])}}>to buy</button>
+        <div className='pickbook-mode-button-container'>
+          <button
+            className='pickbook-mode-button'
+            onClick={() => {
+              setMode('read');
+              setBooksPicked([]);
+            }}
+          >
+            to read
+          </button>
+          <button
+            className='pickbook-mode-button'
+            onClick={() => {
+              setMode('buy');
+              setBooksPicked([]);
+            }}
+          >
+            to buy
+          </button>
         </div>
       </div>
 
-      <div className="pickbook-mode-container">  
+      <div className='pickbook-mode-container'>
         {/* picks your next book to read from one you own (maybe also one you've read already) */}
         {mode === 'read' && (
-          <PickBookToRead 
+          <PickBookToRead
             books={books}
             setBooks={setBooks}
             setBooksPicked={setBooksPicked}
@@ -57,12 +72,13 @@ function PickBook ({ books, setBooks }) {
             setLength={setLength}
             format={format}
             setFormat={setFormat}
-            getRandomBooks={getRandomBooks} />
+            getRandomBooks={getRandomBooks}
+          />
         )}
 
         {/* picks your next book to buy from the to get to shelf */}
         {mode === 'buy' && (
-          <PickBookToBuy 
+          <PickBookToBuy
             books={books}
             setBooks={setBooks}
             setBooksPicked={setBooksPicked}
@@ -73,16 +89,17 @@ function PickBook ({ books, setBooks }) {
             setAmount={setAmount}
             length={length}
             setLength={setLength}
-            getRandomBooks={getRandomBooks} />
+            getRandomBooks={getRandomBooks}
+          />
         )}
 
         {/* display picks */}
         {mode === 'picked' && (
-          <div className="books-picked-container">
+          <div className='books-picked-container'>
             <h2>your pick{booksPicked.length > 1 ? 's' : ''}</h2>
-            <div className="books-picked-covers-container">
-              {booksPicked.map(book => (
-                <Book key={book._id} book={book} type="pick" />
+            <div className='books-picked-covers-container'>
+              {booksPicked.map((book) => (
+                <Book key={book._id} book={book} type='pick' />
               ))}
             </div>
           </div>
@@ -90,11 +107,11 @@ function PickBook ({ books, setBooks }) {
       </div>
     </div>
   );
-};
+}
 
 export default PickBook;
 
-function getRandomBooks (books, amount) {
+function getRandomBooks(books, amount) {
   const shuffledBooks = [...books].sort(() => 0.5 - Math.random());
   console.log(shuffledBooks);
   console.log(Number(amount));
