@@ -1,8 +1,8 @@
 'use strict';
 
-const express = require('express');
-const { postBook } = require('./controllers/books.js');
-const {
+import express from 'express';
+import { postBook } from './controllers/books.js';
+import {
   getUserBooks,
   updateUserBookStatus,
   updateUserBookOwned,
@@ -10,7 +10,7 @@ const {
   updateUserBookProgress,
   updateUserBookFormat,
   updateUserBookShelves
-} = require('./controllers/userBooks.js');
+} from './controllers/userBooks.js';
 
 const router = express.Router();
 
@@ -23,4 +23,4 @@ router.put('/userbooks/:bookId/progress', updateUserBookProgress) //update book 
 router.put('/userbooks/:bookId/format', updateUserBookFormat) //update book format
 router.put('/userbooks/:bookId/shelves', updateUserBookShelves); //update book shelves
 
-module.exports = router;
+export default router;

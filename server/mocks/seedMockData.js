@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 const mongoose = require('mongoose');
-const Book = require('../models/books');
-const UserBook = require('../models/userBooks');
-const Shelf = require('../models/shelves');
-const User = require('../models/users');
+import Book from '../models/books';
+import UserBook from '../models/userBooks';
+import Shelf from '../models/shelves';
+import User from '../models/users';
 
 const USER_ID = process.env.USER_ID;
 
@@ -32,7 +32,7 @@ async function seed() {
     try {
       await mongoose.connect(`${uri}`, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
       });
       console.log('Connected to db ', uri);
     } catch (error) {
@@ -47,39 +47,37 @@ async function seed() {
     email: 'user1@test.com',
   };
 
-    const shelvesList = [
+  const shelvesList = [
     {
       _id: shelfIds.all,
       userId: USER_ID,
       title: 'All',
-      description: 'Books read, owned and want to get to'
+      description: 'Books read, owned and want to get to',
     },
     {
       _id: shelfIds.read,
       userId: USER_ID,
       title: 'Read',
-      description: 'Books I’ve finished'
+      description: 'Books I’ve finished',
     },
     {
       _id: shelfIds.want,
       userId: USER_ID,
       title: 'Want to Read',
-      description: 'Books I want to get to'
+      description: 'Books I want to get to',
     },
     {
       _id: shelfIds.owned,
       userId: USER_ID,
       title: 'Owned',
-      description: 'Books I physically or digitally own'
-    }
+      description: 'Books I physically or digitally own',
+    },
   ];
 
   await User.deleteMany({});
   await Shelf.deleteMany({});
   await User.create(user);
   await Shelf.insertMany(shelvesList);
-
-
 
   await Book.deleteMany({});
   await UserBook.deleteMany({});
@@ -95,20 +93,29 @@ async function seed() {
       publishedDate: new Date(2000 + (i % 20), 0, 1),
       description: `Description for book ${i}`,
       genres: ['fiction', 'drama'],
-      rating: Math.round(Math.random() * 5 * 10) / 10
+      rating: Math.round(Math.random() * 5 * 10) / 10,
     });
   }
 
   const createdBooks = await Book.insertMany(books);
 
   const kindle = getRandomElements(createdBooks, 30);
-  const audiobook = getRandomElements(createdBooks.filter(b => !kindle.includes(b)), 30);
-  const physical = createdBooks.filter(b => !kindle.includes(b) && !audiobook.includes(b));
+  const audiobook = getRandomElements(
+    createdBooks.filter((b) => !kindle.includes(b)),
+    30
+  );
+  const physical = createdBooks.filter(
+    (b) => !kindle.includes(b) && !audiobook.includes(b)
+  );
 
-  const readBooks = getRandomElements(createdBooks, 20).map(b => b._id.toString());
-  const ownedBooks = getRandomElements(createdBooks, 30).map(b => b._id.toString());
+  const readBooks = getRandomElements(createdBooks, 20).map((b) =>
+    b._id.toString()
+  );
+  const ownedBooks = getRandomElements(createdBooks, 30).map((b) =>
+    b._id.toString()
+  );
 
-  const userBooks = createdBooks.map(book => {
+  const userBooks = createdBooks.map((book) => {
     const formats = [];
     if (kindle.includes(book)) formats.push('kindle');
     if (audiobook.includes(book)) formats.push('audiobook');
@@ -128,12 +135,16 @@ async function seed() {
       shelfIds: shelfList,
       progress: isRead ? 100 : 0,
       read: isRead,
-      reads: isRead ? [{
-        dateStarted: new Date(2023, 0, 1),
-        dateCompleted: new Date(2023, 0, 10),
-        rating: Math.floor(Math.random() * 5) + 1,
-        notes: `Initial mock read for ${book.title}`
-      }] : [],
+      reads: isRead
+        ? [
+            {
+              dateStarted: new Date(2023, 0, 1),
+              dateCompleted: new Date(2023, 0, 10),
+              rating: Math.floor(Math.random() * 5) + 1,
+              notes: `Initial mock read for ${book.title}`,
+            },
+          ]
+        : [],
       readCount: isRead ? 1 : 0,
       owned: isOwned,
       status: isRead ? 'read' : 'not reading',
@@ -146,7 +157,7 @@ async function seed() {
   await mongoose.disconnect();
 }
 
-seed().catch(err => {
+seed().catch((err) => {
   console.error(err);
   mongoose.disconnect();
 });
