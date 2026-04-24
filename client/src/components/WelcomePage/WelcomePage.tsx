@@ -1,6 +1,7 @@
-import { Link } from 'react-router';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 
-import logo from './../../assets/bria_logo_grey.png';
+import logo from '../../assets/bria_logo_grey.png';
 
 import './WelcomePage.css';
 
