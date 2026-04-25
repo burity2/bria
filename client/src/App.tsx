@@ -8,7 +8,26 @@ import Home from './components/Home/Home';
 import Library from './components/Library/Library';
 import Layout from './components/Layout/Layout.jsx';
 
+type BookProps = {
+  worksKey?: string,
+  editionKey?: string,
+  isbn?: string,
+  title: string,
+  authors: string[],
+  pages?: number,
+  cover?: number,
+  publishedDate?: Date,
+  description?: string,
+  genres?: string[],
+  rating?: number
+}
+
+type UserBookProps = {
+
+}
+
 function App() {
+
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -25,6 +44,7 @@ function App() {
     }
     fetchUserBooks();
   }, []);
+
 
   return (
     <Routes>
