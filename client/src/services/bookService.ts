@@ -8,6 +8,8 @@ import {
 
 import { get, post } from './helper.apiRequests';
 
+import type { User, UserBook } from '../types';
+
 const localUrl = 'http://localhost:3000';
 
 async function postBook(bookData) {
@@ -20,7 +22,7 @@ async function postBook(bookData) {
   );
 }
 
-async function getUserBooks() {
+async function getUserBooks(): Promise<UserBook[]> {
   return get(
     `${localUrl}/books`,
     'There was an error fetching the data - GetBooks'

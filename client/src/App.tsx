@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import WelcomePage from './components/WelcomePage/WelcomePage';
 import { getUserBooks } from './services/bookService.js';
@@ -8,33 +8,17 @@ import Home from './components/Home/Home';
 import Library from './components/Library/Library';
 import Layout from './components/Layout/Layout.jsx';
 
-type BookProps = {
-  worksKey?: string,
-  editionKey?: string,
-  isbn?: string,
-  title: string,
-  authors: string[],
-  pages?: number,
-  cover?: number,
-  publishedDate?: Date,
-  description?: string,
-  genres?: string[],
-  rating?: number
-}
-
-type UserBookProps = {
-
-}
+import type { Book, UserBook } from "./types"
 
 function App() {
 
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<UserBook[]>([]);
 
   useEffect(() => {
     async function fetchUserBooks() {
       try {
         const userBooks = await getUserBooks();
-        const filteredBooks = userBooks.filter((book) => {
+        const filteredBooks = userBooks.filter((book: UserBook) => {
           if (book.bookId.cover) return book;
         });
         setBooks(filteredBooks);

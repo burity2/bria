@@ -2,9 +2,12 @@
 
 import { put } from './helper.apiRequests';
 
+import type { Shelf } from '../types';
+
+
 const url = 'http://localhost:3000';
 
-async function updateProgress(bookId, progress) {
+async function updateProgress(bookId:string, progress:number) {
   return put(
     `${url}/userbooks/${bookId}/progress`,
     { progress },
@@ -12,7 +15,7 @@ async function updateProgress(bookId, progress) {
   );
 }
 
-async function updateStatus(bookId, status) {
+async function updateStatus(bookId:string, status:string) {
   return put(
     `${url}/userbooks/${bookId}/status`,
     { status },
@@ -20,7 +23,7 @@ async function updateStatus(bookId, status) {
   );
 }
 
-async function updateOwned(bookId, owned) {
+async function updateOwned(bookId:string, owned:boolean) {
   return put(
     `${url}/userbooks/${bookId}/owned`,
     { owned },
@@ -28,7 +31,7 @@ async function updateOwned(bookId, owned) {
   );
 }
 
-async function updateFavorite(bookId, favorite) {
+async function updateFavorite(bookId:string, favorite:boolean) {
   return put(
     `${url}/userbooks/${bookId}/favorite`,
     { favorite },
@@ -36,7 +39,7 @@ async function updateFavorite(bookId, favorite) {
   );
 }
 
-async function updateFormat(bookId, format) {
+async function updateFormat(bookId:string, format:string[]) {
   return put(
     `${url}/userbooks/${bookId}/format`,
     { format },
@@ -44,7 +47,7 @@ async function updateFormat(bookId, format) {
   );
 }
 
-async function updateShelves(bookId, shelves) {
+async function updateShelves(bookId:string, shelves:Shelf) {
   return put(
     `${url}/userbooks/${bookId}/shelves`,
     { shelves },
