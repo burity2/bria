@@ -1,4 +1,4 @@
-'use strict';
+/* 'use strict';
 import { Request, Response } from 'express';
 
 import Book from '../models/books.js';
@@ -75,6 +75,34 @@ export async function postBook(req: Request, res: Response) {
   } catch (error) {
     console.log(error);
     res.status(500).json({
+      message: 'Something went wrong when adding to the database - postBook',
+    });
+  }
+}
+ */
+
+import { Request, Response } from 'express';
+import { findOrCreateBook } from '../services/bookService.js';
+import { ensureUserBook } from '../services/userBookService.js';
+
+const DEFAULT_USER_ID = '64a0c0b0c3f8fa2d1e4b0001';
+
+export async function postBook(req: Request, res: Response) {
+  try {
+    const book = await findOrCreateBook(req.body);
+
+    const userBook = await ensureUserBook({
+      userId: DEFAULT_USER_ID,
+      bookId: book._id,
+      userData: req.body.userData,
+    });
+
+    const populated = await userBook.populate('bookId');
+
+    return res.status(201).json(populated);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
       message: 'Something went wrong when adding to the database - postBook',
     });
   }
