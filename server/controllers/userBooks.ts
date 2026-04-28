@@ -1,10 +1,10 @@
 'use strict';
-
-const UserBook = require('./../models/userBooks.js');
+import { Request, Response } from 'express';
+import UserBook from '../models/userBooks.js';
 
 const DEFAULT_USER_ID = '64a0c0b0c3f8fa2d1e4b0001';
 
-async function getUserBooks (req, res) {
+export async function getUserBooks(req: Request, res: Response) {
   try {
     const userBooks = await UserBook.find({ userId: DEFAULT_USER_ID })
       .sort({ createdAt: 1 })
@@ -12,16 +12,21 @@ async function getUserBooks (req, res) {
     res.status(201).json(userBooks);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Something went wrong when retrieving from the database - getUserBooks'})
+    res.status(500).json({
+      message:
+        'Something went wrong when retrieving from the database - getUserBooks',
+    });
   }
 }
 
-async function updateUserBookStatus (req, res) {
+export async function updateUserBookStatus(req: Request, res: Response) {
   const { bookId } = req.params;
   const status = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, status, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(bookId, status, {
+      new: true,
+    });
     res.status(200).json(updatedBook);
   } catch (error) {
     console.log(error);
@@ -30,12 +35,14 @@ async function updateUserBookStatus (req, res) {
   }
 }
 
-async function updateUserBookOwned (req, res) {
+export async function updateUserBookOwned(req: Request, res: Response) {
   const { bookId } = req.params;
   const owned = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, owned, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(bookId, owned, {
+      new: true,
+    });
     res.status(200).json(updatedBook);
   } catch (error) {
     console.log(error);
@@ -44,12 +51,14 @@ async function updateUserBookOwned (req, res) {
   }
 }
 
-async function updateUserBookFavorite (req, res) {
+export async function updateUserBookFavorite(req: Request, res: Response) {
   const { bookId } = req.params;
   const favorite = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, favorite, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(bookId, favorite, {
+      new: true,
+    });
     res.status(200).json(updatedBook);
   } catch (error) {
     console.log(error);
@@ -58,12 +67,14 @@ async function updateUserBookFavorite (req, res) {
   }
 }
 
-async function updateUserBookProgress (req, res) {
+export async function updateUserBookProgress(req: Request, res: Response) {
   const { bookId } = req.params;
   const progress = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, progress, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(bookId, progress, {
+      new: true,
+    });
     res.status(200).json(updatedBook);
   } catch (error) {
     console.log(error);
@@ -72,12 +83,16 @@ async function updateUserBookProgress (req, res) {
   }
 }
 
-async function updateUserBookFormat (req, res) {
+export async function updateUserBookFormat(req: Request, res: Response) {
   const { bookId } = req.params;
   const { format } = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, { format }, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(
+      bookId,
+      { format },
+      { new: true }
+    );
     res.status(200).json(updatedBook);
   } catch (error) {
     console.log(error);
@@ -86,12 +101,16 @@ async function updateUserBookFormat (req, res) {
   }
 }
 
-async function updateUserBookShelves (req, res) {
+export async function updateUserBookShelves(req: Request, res: Response) {
   const { bookId } = req.params;
   const { shelves } = req.body;
 
   try {
-    const updatedBook = await UserBook.findByIdAndUpdate(bookId, { shelfIds: shelves }, {new: true});
+    const updatedBook = await UserBook.findByIdAndUpdate(
+      bookId,
+      { shelfIds: shelves },
+      { new: true }
+    );
 
     res.status(200).json(updatedBook);
   } catch (error) {
@@ -99,13 +118,3 @@ async function updateUserBookShelves (req, res) {
     res.json(error);
   }
 }
-
-module.exports = {
-  getUserBooks,
-  updateUserBookStatus,
-  updateUserBookOwned,
-  updateUserBookFavorite,
-  updateUserBookProgress,
-  updateUserBookFormat,
-  updateUserBookShelves,
-};
