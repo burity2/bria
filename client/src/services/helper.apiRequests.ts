@@ -5,15 +5,15 @@ const DEFAULT_HEADERS = {
 };
 
 async function request(
-  url,
-  options = {},
+  url: string,
+  options: RequestInit = {},
   errorMessage = 'Request failed'
 ) {
   const res = await fetch(url, {
     ...options,
     headers: {
       ...DEFAULT_HEADERS,
-      ...options.headers,
+      ...options.headers
     },
   });
 
@@ -24,11 +24,11 @@ async function request(
   return res.json();
 }
 
-export function get(url, errorMessage) {
+export function get(url:string, errorMessage:string) {
   return request(url, {}, errorMessage);
 }
 
-export function post(url, body, errorMessage) {
+export function post(url:string, body:unknown, errorMessage:string) {
   return request(
     url,
     {
@@ -39,7 +39,7 @@ export function post(url, body, errorMessage) {
   );
 }
 
-export function put(url, body, errorMessage) {
+export function put(url:string, body:unknown, errorMessage:string) {
   return request(
     url,
     {
