@@ -1,8 +1,8 @@
 'use strict';
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 
-import Book from '../models/books.js';
-import UserBook from './../models/userBooks.js';
+import Book from '../models/books.ts';
+import UserBook from './../models/userBooks.ts';
 
 const DEFAULT_USER_ID = '64a0c0b0c3f8fa2d1e4b0001';
 

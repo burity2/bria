@@ -25,7 +25,7 @@ type RouteFiles = {
     id: "root";
     page: "/" | "/*";
   };
-  "catchall.jsx": {
+  "catchall.tsx": {
     id: "catchall";
     page: "/" | "/*";
   };
