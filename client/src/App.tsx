@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import WelcomePage from './components/WelcomePage/WelcomePage';
-import { getUserBooks } from './services/bookService.js';
+import { getUserBooks } from './services/bookService';
 
 import './App.css';
 import Home from './components/Home/Home';
 import Library from './components/Library/Library';
-import Layout from './components/Layout/Layout.jsx';
+import Layout from './components/Layout/Layout';
 
 import type { Book, UserBook } from "./types"
 
