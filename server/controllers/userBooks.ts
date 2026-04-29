@@ -1,6 +1,6 @@
 'use strict';
-import type { Request, Response } from 'express';
-import UserBook from '../models/userBooks.ts';
+import { Request, Response } from 'express';
+import UserBook from '../models/userBooks.js';
 
 const DEFAULT_USER_ID = '64a0c0b0c3f8fa2d1e4b0001';
 

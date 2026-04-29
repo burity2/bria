@@ -1,6 +1,6 @@
 'use strict';
 
-import mongoose from './../db.ts';
+import mongoose from './../db.js';
 // const mongoose = require('mongoose'); //only for seeding mock data
 
 const bookSchema = new mongoose.Schema(

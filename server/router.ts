@@ -1,7 +1,7 @@
 'use strict';
 
 import express from 'express';
-import { postBook } from './controllers/books.ts';
+import { postBook } from './controllers/books.js';
 import {
   getUserBooks,
   updateUserBookStatus,
@@ -10,7 +10,7 @@ import {
   updateUserBookProgress,
   updateUserBookFormat,
   updateUserBookShelves
-} from './controllers/userBooks.ts';
+} from './controllers/userBooks.js';
 
 const router = express.Router();
 

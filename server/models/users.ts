@@ -1,7 +1,7 @@
 'use strict';
 
 import { InferSchemaType, model } from 'mongoose';
-import mongoose from './../db.ts';
+import mongoose from './../db.js';
 // const mongoose = require('mongoose'); //only for seeding mock data
 
 const userSchema = new mongoose.Schema(
