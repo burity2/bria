@@ -15,7 +15,7 @@ const editionUrl = 'https://openlibrary.org/books';
  * @returns The book array from OpenLibrary
  * @throws If the fetch fails or no data is returned
  */
-async function getBooksBySearch(searchString) {
+async function getBooksBySearch(searchString: string) {
   const urlSearchString = searchString.split(' ').join('+');
 
   const data = await get(
