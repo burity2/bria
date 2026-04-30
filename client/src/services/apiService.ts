@@ -2,6 +2,8 @@
 
 import { get } from './helper.apiRequests';
 
+import type { SearchBook, SearchResponse, IsbnSearchResponse, EditionData, WorksData } from '../types';
+
 const searchUrl = 'https://openlibrary.org/search.json';
 const worksUrl = 'https://openlibrary.org/works';
 const editionUrl = 'https://openlibrary.org/books';
@@ -15,13 +17,40 @@ const editionUrl = 'https://openlibrary.org/books';
  * @returns The book array from OpenLibrary
  * @throws If the fetch fails or no data is returned
  */
+
+// type apiBook = {
+//   author_key: string[],
+//   author_name: string[],
+//   cover_edition_key: string, // !
+//   cover_i: number, // !
+//   ebook_access: string,
+//   edition_count: number,
+//   first_publish_year: number,
+//   has_fulltext: boolean,
+//   ia: string[],
+//   ia_collection: string[],
+//   key: string, // !
+//   language: string[],
+//   lending_edition_s: string,
+//   lending_identifier_s: string,
+//   publice_scan_b: boolean,
+//   series_key: string[],
+//   series_name: string[],
+//   series_position: string[],
+//   title: string,
+//
+
+
+
 async function getBooksBySearch(searchString: string) {
   const urlSearchString = searchString.split(' ').join('+');
 
   const data = await get(
     `${searchUrl}?q=${urlSearchString}`,
     'There was an error fetching the data - getBooksBySearch'
-  );
+  ) as SearchResponse;
+
+  console.log(data);
 
   const filteredData = data.docs.filter(
     (book) => book.cover_edition_key && book.key
@@ -40,14 +69,12 @@ async function getBooksBySearch(searchString: string) {
  * @throws {Error} If the fetch fails or no data is returned
  */
 
-async function getBookByIsbn(isbn) {
-  console.log('in getbookbyisbn');
-  console.log(isbn);
+async function getBookByIsbn(isbn: string): Promise<IsbnSearchResponse>  {
 
   return get(
     `${searchUrl}?isbn=${isbn}`,
     'There was an error fetching the data - getBookByIsbn'
-  );
+  )
 }
 
 /**
@@ -60,11 +87,14 @@ async function getBookByIsbn(isbn) {
  * @throws {Error}
  */
 
-async function getBookByEditionKey(key) {
-  return get(
+async function getBookByEditionKey(key: string): Promise<EditionData> {
+  const data = await get(
     `${editionUrl}/${key}.json`,
     'There was an error fetching the data - getBookByEditionKey'
   );
+
+  console.log(data);
+  return data;
 }
 
 /**
@@ -76,14 +106,17 @@ async function getBookByEditionKey(key) {
  * @return {Promise<Object>}
  * @throws {Error}
  */
-async function getBookByWorksKey(key) {
-  return get(
+async function getBookByWorksKey(key: string): Promise<WorksData> {
+  const data = get(
     `${worksUrl}/${key}.json`,
     'There was an error fetching the data - getBookByWorksKey'
   );
+
+  console.log(data);
+  return data;
 }
 
-function getBookCover(coverId, size) {
+function getBookCover(coverId:number, size:string) {
   if (!coverId) return null;
   return `https://covers.openlibrary.org/b/id/${coverId}-${size}.jpg`;
 }

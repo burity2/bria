@@ -7,7 +7,7 @@ import './Home.css';
 
 function Home({ books, setBooks }) {
   return (
-    <div className='home-container'>
+    <div className='home-container' data-testid="home-page">
       <div className='home-inner-container'>
         <div className='left-container'>
           <CurrentlyReading books={books} setBooks={setBooks} />

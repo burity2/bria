@@ -8,11 +8,11 @@ import {
 
 import { get, post } from './helper.apiRequests';
 
-import type { User, UserBook } from '../types';
+import type { SearchBook, PostBookPayload, UserBook } from '../types';
 
 const localUrl = 'http://localhost:3000';
 
-async function postBook(bookData) {
+async function postBook(bookData: SearchBook) {
   const book = await buildBookObject(bookData);
 
   return post(
@@ -32,7 +32,7 @@ async function getUserBooks(): Promise<UserBook[]> {
 export { postBook, getUserBooks };
 
 //helper function to get additional book data and rebuild book object
-async function buildBookObject(book) {
+async function buildBookObject(book: SearchBook): Promise<PostBookPayload> {
   const editionKey = book.cover_edition_key || '';
   const worksKey = book.key?.split('/').pop() || '';
 
