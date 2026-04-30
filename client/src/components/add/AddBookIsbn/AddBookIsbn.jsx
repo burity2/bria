@@ -19,6 +19,7 @@ function AddBookIsbn({ onAddBook }) {
     }
 
     const book = result.docs[0];
+    console.log(book)
 
     onAddBook(book);
     setIsbn('');

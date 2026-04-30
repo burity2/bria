@@ -9,9 +9,13 @@
         "target": "es5",            // specify ECMAScript target version
         "allowJs": true,            // allow a partial TypeScript and JavaScript codebase
         "skipLibCheck": true,
-        "moduleResolution": "bundler"
+        "moduleResolution": "bundler",
+        "types": [
+            "vitest/globals",
+            "@testing-library/jest-dom"
+        ]
     },
     "include": [
         "./src/"
-, "src/types.ts"    ]
+, "src/types.ts", "vitest.config.ts"    ]
 }
